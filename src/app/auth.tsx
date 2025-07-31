@@ -1,4 +1,5 @@
 import {
+  Alert,
   ImageBackground,
   StyleSheet,
   Text,
@@ -10,7 +11,10 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
+import { supabase } from "../lib/supabase";
+import { Toast } from "react-native-toast-notifications";
+import { useAuth } from "../providers/auth-provider";
 
 const authSchema = zod.object({
   email: zod.string().email("Invalid email address"),
@@ -18,6 +22,7 @@ const authSchema = zod.object({
 });
 
 const Auth = () => {
+  const { session } = useAuth();
   const { control, handleSubmit, formState } = useForm({
     resolver: zodResolver(authSchema),
     defaultValues: {
@@ -26,14 +31,36 @@ const Auth = () => {
     },
   });
 
-  const signIn = (data: zod.infer<typeof authSchema>) => {
-    console.log("Sign In Data:", data);
-    // Handle sign in logic here
+  if (session) {
+    return <Redirect href="/" />;
+  }
+
+  const signIn = async (data: zod.infer<typeof authSchema>) => {
+    const { error } = await supabase.auth.signInWithPassword(data);
+
+    if (error) {
+      Alert.alert(error.message);
+    } else {
+      Toast.show("Signed in successfully", {
+        type: "success",
+        duration: 1500,
+        placement: "top",
+      });
+    }
   };
 
-  const signUp = (data: zod.infer<typeof authSchema>) => {
-    console.log("Sign Up Data:", data);
-    // Handle sign up logic here
+  const signUp = async (data: zod.infer<typeof authSchema>) => {
+    const { error } = await supabase.auth.signUp(data);
+
+    if (error) {
+      Alert.alert(error.message);
+    } else {
+      Toast.show("Signed up successfully", {
+        type: "success",
+        duration: 1500,
+        placement: "top",
+      });
+    }
   };
 
   return (

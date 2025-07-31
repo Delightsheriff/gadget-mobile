@@ -12,7 +12,7 @@ const OrdersLayout = () => {
         }}
       />
       <Stack.Screen
-        name="order-details"
+        name="[slug]"
         options={{
           title: "Order Details",
           headerTitleAlign: "center",

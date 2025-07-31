@@ -43,7 +43,7 @@ const renderItem: ListRenderItem<Order> = ({ item }) => (
 const Orders = () => {
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ title: "Orders" }} />
+      <Stack.Screen options={{ title: "Orders", headerShown: true }} />
       <FlatList
         data={ORDERS}
         keyExtractor={(item) => item.id.toString()}

@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Stack } from "expo-router";
+import { useOrderUpdateSubscriptions } from "../../../api/subscriptions";
 
 const OrdersLayout = () => {
+  useOrderUpdateSubscriptions();
+
   return (
     <Stack>
       <Stack.Screen

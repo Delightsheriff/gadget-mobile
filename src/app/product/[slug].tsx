@@ -54,7 +54,6 @@ const ProductDetails = () => {
     addItem({
       id: product.id,
       title: product.title,
-      //@ts-ignore
       heroImage: product.heroImage,
       price: product.price,
       quantity,

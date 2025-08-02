@@ -36,8 +36,7 @@ const CartItem = ({
 }: CartItemProps) => {
   return (
     <View style={styles.cartItem}>
-      {/* @ts-ignore */}
-      <Image source={item.heroImage} style={styles.itemImage} />
+      <Image source={{ uri: item.heroImage }} style={styles.itemImage} />
       <View style={styles.itemDetails}>
         <Text style={styles.itemTitle}>{item.title}</Text>
         <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>

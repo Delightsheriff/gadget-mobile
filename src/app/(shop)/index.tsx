@@ -26,7 +26,7 @@ const Home = () => {
         renderItem={({ item }) => <ProductListItem product={item} />}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
-        ListHeaderComponent={ListHeader}
+        ListHeaderComponent={<ListHeader categories={data.categories} />}
         contentContainerStyle={styles.flatListContent}
         columnWrapperStyle={styles.columnWrapper}
         style={{

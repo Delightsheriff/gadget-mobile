@@ -29,12 +29,12 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     const fetchSession = async () => {
       const {
         data: { session },
-      } = await supabase.auth.getSession();
+      } = await (await supabase).auth.getSession();
 
       setSession(session);
 
       if (session) {
-        const { data: user, error } = await supabase
+        const { data: user, error } = await (await supabase)
           .from("users")
           .select("*")
           .eq("id", session.user.id)
